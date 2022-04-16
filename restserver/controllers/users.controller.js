@@ -56,15 +56,17 @@ const userDelete = async (req, res) => {
 
   const { id } = req.params
   const { db = false } = req.query
+  const authenticatedUser = req.user
 
-  const [ error, user ] = Boolean(db) 
+  const [ error, deletedUser ] = Boolean(db) 
     ? await to(User.findByIdAndDelete( id ))
     : await to(User.findByIdAndUpdate( id, { status: false }))
   if(error) return next(error)
 
   res.status(200).json({
     msg: 'User Deleted',
-    user
+    deletedUser,
+    authenticatedUser
   })
 }
 
