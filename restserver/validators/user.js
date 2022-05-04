@@ -28,7 +28,7 @@ const validateReqGet = [
 
 const validateDeleteUser = [
   validateJWT,
-  // isAdminRole,
+  isAdminRole,
   hasRole('ADMIN_ROLE', 'USER_ROLE'),
   check('id', 'Invalid id').isMongoId(),
   check('id').custom( existsUserById ),

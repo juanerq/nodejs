@@ -1,8 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 
-const userRouter = require('../routes/users.routes')
 const authRouter = require('../routes/auth.routes')
+const categoriesRouter = require('../routes/categories.routes')
+const userRouter = require('../routes/users.routes')
 
 const { dbConnection } = require('../database/config')
 const handleErrors = require('../middlewares/handle-erros')
@@ -14,8 +15,11 @@ class Server {
     this.app = express()
     this.port = process.env.PORT
 
-    this.usersPath = '/api/users'
-    this.auntPath = '/api/auth'
+    this.paths = {
+      auth:       '/api/auth',
+      categories: '/api/categories',
+      users:      '/api/users'
+    }
 
     // Connect database
     this.connectDB()
@@ -41,8 +45,9 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.usersPath, userRouter)
-    this.app.use(this.auntPath, authRouter)
+    this.app.use(this.paths.auth, authRouter)
+    this.app.use(this.paths.categories, categoriesRouter)
+    this.app.use(this.paths.users, userRouter)
 
     this.app.use( notFound )
     this.app.use( handleErrors )

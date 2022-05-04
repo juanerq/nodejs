@@ -43,7 +43,7 @@ const userPut = async (req, res, next) => {
   if( password ) {
     rest.password = bcrypt(password)
   }
-  const [ error, user ] = await to(User.findByIdAndUpdate( id, rest ))
+  const [ error, user ] = await to(User.findByIdAndUpdate( id, rest, { new: true } ))
   if(error) return next(error)
 
   res.status(200).json({ 
@@ -60,7 +60,7 @@ const userDelete = async (req, res) => {
 
   const [ error, deletedUser ] = Boolean(db) 
     ? await to(User.findByIdAndDelete( id ))
-    : await to(User.findByIdAndUpdate( id, { status: false }))
+    : await to(User.findByIdAndUpdate( id, { status: false }, { new: true } ))
   if(error) return next(error)
 
   res.status(200).json({
