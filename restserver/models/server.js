@@ -1,9 +1,13 @@
 const express = require('express')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 
 const authRouter = require('../routes/auth.routes')
 const categoriesRouter = require('../routes/categories.routes')
+const productsRouter = require('../routes/products.routes')
+const searchRouter = require('../routes/search.routes')
 const userRouter = require('../routes/users.routes')
+const uploadRouter = require('../routes/uploads.routes')
 
 const { dbConnection } = require('../database/config')
 const handleErrors = require('../middlewares/handle-erros')
@@ -18,7 +22,10 @@ class Server {
     this.paths = {
       auth:       '/api/auth',
       categories: '/api/categories',
-      users:      '/api/users'
+      products:   '/api/products',
+      search:     '/api/search',
+      users:      '/api/users',
+      uploads:    '/api/uploads'
     }
 
     // Connect database
@@ -42,12 +49,22 @@ class Server {
     this.app.use(express.json())
     // Public directory
     this.app.use(express.static('public'))
+
+    this.app.use(fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+    }));
   }
 
   routes() {
     this.app.use(this.paths.auth, authRouter)
     this.app.use(this.paths.categories, categoriesRouter)
+    this.app.use(this.paths.products, productsRouter)
+    this.app.use(this.paths.search, searchRouter)
     this.app.use(this.paths.users, userRouter)
+    this.app.use(this.paths.uploads, uploadRouter)
+
 
     this.app.use( notFound )
     this.app.use( handleErrors )

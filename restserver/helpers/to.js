@@ -4,4 +4,6 @@ const to = (promise) => {
     .catch(err => [err, null])
 }
 
-module.exports = to
+module.exports = {
+  to
+}

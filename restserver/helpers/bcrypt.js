@@ -5,4 +5,6 @@ const bcrypt = (password) => {
   return bcryptjs.hashSync( password, salt )
 }
 
-module.exports = bcrypt
+module.exports = {
+  bcrypt
+}

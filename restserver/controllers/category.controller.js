@@ -3,7 +3,7 @@ const to = require('../helpers/to')
 
 const getCategories = async (req, res) => {
 
-  const { limit = 5, from = 0 } = req.params
+  const { limit = 5, from = 0 } = req.query
   const query = { status: true }
 
   const [total, categories] = await Promise.all([
@@ -64,7 +64,7 @@ const updateCategory = async (req, res, next) => {
   data.name = data.name.toUpperCase()
   data.user = req.user._id
 
-  const [error, category ] = await to(Category.findByIdAndUpdate( id, data, { new: true } ))
+  const [error, category] = await to(Category.findByIdAndUpdate( id, data, { new: true } ))
   if(error) return next(error)
 
   res.status(200).json({ 
