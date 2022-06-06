@@ -21,7 +21,7 @@ const validateUpdateUser = [
 ]
 
 const validateReqGet = [
-  check('from', 'Query From is not a number').optional().isNumeric(),
+  check('from', 'Query from is not a number').optional().isNumeric(),
   check('limit', 'Query limit is not a number').optional().isNumeric(),
   validateFields
 ]
