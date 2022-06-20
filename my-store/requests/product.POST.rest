@@ -1,0 +1,6 @@
+POST http://localhost:10101/api/products
+Content-Type: application/json
+
+{
+
+}

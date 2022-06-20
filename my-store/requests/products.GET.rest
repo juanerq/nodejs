@@ -1,0 +1,7 @@
+GET http://localhost:10101/api/products
+
+###
+GET http://localhost:10101/api/products?limit=10
+
+###
+GET http://localhost:10101/api/products/89b59ea5-288b-435c-b4fa-a992475a07

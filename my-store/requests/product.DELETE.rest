@@ -1,0 +1,1 @@
+DELETE http://localhost:10101/api/products/aad618bd-5e5f-4279-bf2a-16ce14af241d

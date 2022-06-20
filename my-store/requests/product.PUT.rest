@@ -1,0 +1,6 @@
+PUT http://localhost:10101/api/products/73815fc3-7ffb-49d7-8fac-d2aa5e76ce29
+Content-Type: application/json
+
+{
+  "name": ""
+}
