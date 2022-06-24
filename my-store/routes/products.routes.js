@@ -10,7 +10,8 @@ import {
   createProductSchema,
   getProductSchema,
   idRequiredSchema,
-  updatedProductSchema
+  updatedProductSchema,
+  filterProductSchema
 } from '../schemas/product.schema.js'
 import validatorHandler from '../middlewares/validator.handler.js'
 
@@ -25,6 +26,7 @@ router.route('/')
 router.route('/:id?')
   .get(
     validatorHandler(getProductSchema, 'params'),
+    validatorHandler(filterProductSchema, 'query'),
     listProducts
   )
 

@@ -1,74 +1,108 @@
 import { faker } from '@faker-js/faker'
 import boom from '@hapi/boom'
+import ConnectionDB from '../database/connection.js'
 
 class ProductsServices {
   constructor () {
     this.products = []
 
-    this.generate()
+    this.connectionDB = new ConnectionDB()
+    this.connection = this.connectionDB.getConnection()
+
+    // this.setProductList()
   }
 
-  generate () {
-    const size = 100
-
-    for (let i = 0; i < size; i++) {
-      this.products.push({
-        id: faker.datatype.uuid(),
+  generate (size = 10) {
+    return Array.from({ length: size }, () => {
+      return {
         name: faker.commerce.productName(),
         price: +faker.commerce.price(),
         image: faker.image.imageUrl(),
         isBlock: faker.datatype.boolean()
+      }
+    })
+  }
+
+  setProductList () {
+    this.products = this.generate()
+
+    const query = 'INSERT INTO products (?) VALUE ?'
+    const fields = Object.keys(this.products[0])
+    const values = this.products.map(product => Object.values(product))
+
+    const sql = this.connection.format(query, [fields]).replace(/'/ig, '')
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(sql, [values], async (err, data) => {
+        if (err) return reject(err)
+        resolve(data)
       })
-    }
+    })
   }
 
   create (data) {
-    const product = {
-      id: faker.datatype.uuid(),
-      ...data
-    }
+    const query = 'INSERT INTO products SET ?'
 
-    this.products.push(product)
-    return product
+    return new Promise((resolve, reject) => {
+      this.connection.query(query, data, async (err, data) => {
+        if (err) return reject(err)
+        resolve(data)
+      })
+    })
   }
 
-  find ({ from = 0, limit = 100 }) {
-    return this.products.slice(from, limit)
+  find ({ from = 1, limit = 100 }) {
+    const query = 'SELECT * FROM products LIMIT ?, ?'
+
+    return new Promise((resolve, reject) => {
+      this.connection.query(query, [+from - 1, +limit], async (err, data) => {
+        if (err) return reject(err)
+        resolve(data || [])
+      })
+    })
   }
 
   findOne (id) {
-    const product = this.products.find(e => e.id === id)
+    const query = `SELECT * FROM products WHERE id = ${id}`
 
-    if (!product) throw boom.notFound('Product not found')
-    if (product.isBlock) throw boom.conflict('Product is block')
+    return new Promise((resolve, reject) => {
+      this.connection.query(query, async (err, data) => {
+        if (err) return reject(err)
 
-    return product
+        if (data.length === 0) return reject(boom.notFound('Product not found'))
+        if (data[0]?.isBlock) reject(boom.conflict('Product is block'))
+
+        resolve(data || [])
+      })
+    })
   }
 
   update (id, changes) {
-    const index = this.products.findIndex(e => e.id === id)
-    if (index === -1) throw boom.notFound('Product not found')
+    const query = `UPDATE products SET ? WHERE id = ${id}`
 
-    const product = this.products[index]
+    return new Promise((resolve, reject) => {
+      this.connection.query(query, changes, async (err, data) => {
+        if (err) return reject(err)
 
-    const { name, price, image, isBlock } = { ...product, ...changes }
-    changes = {
-      name: name || product.name,
-      price: price || product.price,
-      image: image || product.image,
-      isBlock: isBlock || product.isBlock
-    }
+        if (data.affectedRows === 0) reject(boom.notFound('Product not found'))
 
-    this.products[index] = { ...product, ...changes }
-    return this.products[index]
+        resolve(data)
+      })
+    })
   }
 
   delete (id) {
-    const index = this.products.findIndex(e => e.id === id)
-    if (index === -1) throw boom.notFound('Product not found')
+    const query = `DELETE FROM products WHERE id = ${id}`
 
-    const product = this.products.splice(index, 1)
-    return product
+    return new Promise((resolve, reject) => {
+      this.connection.query(query, async (err, data) => {
+        if (err) return reject(err)
+
+        if (data.affectedRows === 0) reject(boom.notFound('Product not found'))
+
+        resolve(data)
+      })
+    })
   }
 }
 

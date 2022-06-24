@@ -1,6 +1,6 @@
 export const errorHandler = (err, req, res, next) => {
   const error = {
-    error: true,
+    name: err.name,
     msg: err.message,
     stack: err.stack
   }
