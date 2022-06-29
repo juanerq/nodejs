@@ -1,6 +1,0 @@
-PUT http://localhost:10101/api/products/9
-Content-Type: application/json
-
-{
-  "name": "telefono"
-}

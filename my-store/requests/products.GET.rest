@@ -1,7 +1,0 @@
-GET http://localhost:10101/api/products
-
-###
-GET http://localhost:10101/api/products?from=4&limit=3
-
-###
-GET http://localhost:10101/api/products/1

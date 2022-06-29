@@ -1,8 +1,0 @@
-POST http://localhost:10101/api/products
-Content-Type: application/json
-
-{
-  "name": "flor",
-  "price": 9000,
-  "image": "https://loremflickr.com/640/480"
-}

@@ -1,0 +1,12 @@
+GET http://localhost:10101/api/roles
+
+###
+GET http://localhost:10101/api/roles/1
+
+###
+POST http://localhost:10101/api/roles
+Content-Type: application/json
+
+{
+  "name": "j"
+}

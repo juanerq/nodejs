@@ -1,0 +1,28 @@
+GET http://localhost:10101/api/products
+
+###
+GET http://localhost:10101/api/products?from=4&limit=3
+
+###
+GET http://localhost:10101/api/products/1
+
+###
+POST http://localhost:10101/api/products
+Content-Type: application/json
+
+{
+  "name": "flor",
+  "price": 9000,
+  "image": "https://loremflickr.com/640/480"
+}
+
+###
+PUT http://localhost:10101/api/products/9
+Content-Type: application/json
+
+{
+  "name": "telefono"
+}
+
+###
+DELETE http://localhost:10101/api/products/1

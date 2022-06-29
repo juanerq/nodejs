@@ -1,0 +1,31 @@
+GET http://localhost:10101/api/users?from=1
+
+###
+GET http://localhost:10101/api/users/1
+
+###
+POST http://localhost:10101/api/users
+Content-Type: application/json
+
+{
+  "name": "juan",
+  "email": "juan@gmail.com",
+  "password": "123456",
+  "image": "https://loremflickr.com/640/480",
+  "roleId": 1
+}
+
+###
+PUT http://localhost:10101/api/users/1
+Content-Type: application/json
+
+{
+  "name": "Maria Paula",
+  "email": "mariapaula@gmail.com",
+  "password": "maria123456",
+  "image": "https://maria.com/640/480",
+  "roleId": 2
+}
+
+###
+DELETE http://localhost:10101/api/users/2
