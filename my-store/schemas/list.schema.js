@@ -1,19 +1,25 @@
-import Joi from 'joi'
+const Joi = require('joi')
 
 const id = Joi.number().integer()
 const from = Joi.number().integer().min(1)
 const limit = Joi.number().integer().min(1)
 
-export const filterSchema = Joi.object({
+const filterSchema = Joi.object({
   id,
   from,
   limit
 })
 
-export const idRequiredSchema = Joi.object({
+const idRequiredSchema = Joi.object({
   id: id.required()
 })
 
-export const validateIdSchema = Joi.object({
+const validateIdSchema = Joi.object({
   id
 })
+
+module.exports = {
+  filterSchema,
+  idRequiredSchema,
+  validateIdSchema
+}

@@ -1,5 +1,5 @@
-import boom from '@hapi/boom'
-import sequelize from '../database/sequelize.js'
+const boom = require('@hapi/boom')
+const sequelize = require('../database/sequelize.js')
 const models = sequelize.models
 
 class Services {
@@ -53,4 +53,4 @@ class Services {
   }
 }
 
-export default Services
+module.exports = Services

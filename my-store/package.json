@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all"
+
   },
   "keywords": [],
   "author": "",
@@ -15,7 +19,8 @@
     "@faker-js/faker": "^7.2.0",
     "eslint": "^8.17.0",
     "eslint-config-standard": "^17.0.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "sequelize-cli": "^6.4.1"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.0",
@@ -25,6 +30,6 @@
     "joi": "^17.6.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.21.0"
+    "sequelize": "^6.21.0"  
   }
 }

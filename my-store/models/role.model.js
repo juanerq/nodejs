@@ -1,8 +1,8 @@
-import { Model, DataTypes } from 'sequelize'
+const { Model, DataTypes } = require('sequelize')
 
-export const ROLE_TABLE_NAME = 'roles'
+const ROLE_TABLE_NAME = 'roles'
 
-export const RoleSchema = {
+const RoleSchema = {
   id: {
     type: DataTypes.INTEGER,
     field: 'role_id',
@@ -16,7 +16,7 @@ export const RoleSchema = {
   }
 }
 
-export class Role extends Model {
+class Role extends Model {
   static modelName = 'Role'
 
   static associations () {
@@ -31,4 +31,10 @@ export class Role extends Model {
       timestamps: false
     }
   }
+}
+
+module.exports = {
+  ROLE_TABLE_NAME,
+  RoleSchema,
+  Role
 }

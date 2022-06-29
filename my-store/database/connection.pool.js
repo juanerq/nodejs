@@ -1,5 +1,5 @@
-import mysql from 'mysql'
-import config from '../config/config.js'
+const mysql = require('mysql')
+const config = require('../config/config.js')
 
 const USER = encodeURIComponent(config.dbUser)
 const PASSWORD = encodeURIComponent(config.dbPassword)
@@ -24,4 +24,4 @@ class ConnectionDB {
   }
 }
 
-export default ConnectionDB
+module.exports = ConnectionDB

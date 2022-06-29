@@ -1,11 +1,11 @@
-import { ValidationError } from 'sequelize'
+const { ValidationError } = require('sequelize')
 
-export const logErrors = (err, req, res, next) => {
+const logErrors = (err, req, res, next) => {
   console.error(err)
   next(err)
 }
 
-export const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
   const error = {
     name: err.name,
     msg: err.message,
@@ -14,7 +14,7 @@ export const errorHandler = (err, req, res, next) => {
   res.status(500).json(error)
 }
 
-export const ormErrorHandler = (err, req, res, next) => {
+const ormErrorHandler = (err, req, res, next) => {
   if (err instanceof ValidationError) {
     const error = {
       name: err.name,
@@ -26,7 +26,7 @@ export const ormErrorHandler = (err, req, res, next) => {
   next(err)
 }
 
-export const boomErrorHandler = (err, req, res, next) => {
+const boomErrorHandler = (err, req, res, next) => {
   console.error(err)
 
   if (err.isBoom) {
@@ -36,10 +36,18 @@ export const boomErrorHandler = (err, req, res, next) => {
   next(err)
 }
 
-export const error404 = (req, res) => {
+const error404 = (req, res) => {
   const error = {
     name: 'NotFound',
     msg: 'Not Found'
   }
   res.status(404).json(error)
+}
+
+module.exports = {
+  logErrors,
+  errorHandler,
+  ormErrorHandler,
+  boomErrorHandler,
+  error404
 }

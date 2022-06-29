@@ -1,8 +1,8 @@
-import express from 'express'
-import { listRoles, createRole, deleteRole } from '../controllers/roles.controller.js'
+const express = require('express')
+const { listRoles, createRole, deleteRole } = require('../controllers/roles.controller.js')
 
-import { validateIdSchema, idRequiredSchema } from '../schemas/list.schema.js'
-import validatorHandler from '../middlewares/validator.handler.js'
+const { validateIdSchema, idRequiredSchema } = require('../schemas/list.schema.js')
+const validatorHandler = require('../middlewares/validator.handler.js')
 
 const router = express.Router()
 
@@ -15,4 +15,4 @@ router.route('/:id?')
 router.route('/:id')
   .delete(validatorHandler(idRequiredSchema), deleteRole)
 
-export default router
+module.exports = router

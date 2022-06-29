@@ -1,10 +1,10 @@
-import express from 'express'
-import cors from 'cors'
-import { logErrors, boomErrorHandler, errorHandler, ormErrorHandler, error404 } from '../middlewares/error.handler.js'
+const express = require('express')
+const cors = require('cors')
+const { logErrors, boomErrorHandler, errorHandler, ormErrorHandler, error404 } = require('../middlewares/error.handler.js')
 
-import productsRouter from '../routes/products.routes.js'
-import usersRouter from '../routes/users.routes.js'
-import rolesRouter from '../routes/roles.routes.js'
+const productsRouter = require('../routes/products.routes.js')
+const usersRouter = require('../routes/users.routes.js')
+const rolesRouter = require('../routes/roles.routes.js')
 
 class Server {
   constructor () {
@@ -46,4 +46,4 @@ class Server {
   }
 }
 
-export default Server
+module.exports = Server

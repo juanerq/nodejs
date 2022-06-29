@@ -1,7 +1,7 @@
-import { Product, ProductSchema } from './product.model.js'
-import { Category, CategorySchema } from './category.model.js'
-import { User, UserSchema } from './user.model.js'
-import { Role, RoleSchema } from './role.model.js'
+const { Product, ProductSchema } = require('./product.model.js')
+const { Category, CategorySchema } = require('./category.model.js')
+const { User, UserSchema } = require('./user.model.js')
+const { Role, RoleSchema } = require('./role.model.js')
 
 const setupModels = async (sequelize) => {
   Product.init(ProductSchema, Product.config(sequelize))
@@ -10,11 +10,12 @@ const setupModels = async (sequelize) => {
   Role.init(RoleSchema, Role.config(sequelize))
 }
 
-export const modelList = {
+const modelList = {
   product: Product.modelName,
   category: Category.modelName,
   user: User.modelName,
   role: Role.modelName
 }
 
-export default setupModels
+module.exports = setupModels
+module.exports.modelList = modelList

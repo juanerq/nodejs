@@ -1,9 +1,9 @@
-import express from 'express'
-import { listProducts, createProduct, updateProduct, deleteProduct } from '../controllers/products.controller.js'
+const express = require('express')
+const { listProducts, createProduct, updateProduct, deleteProduct } = require('../controllers/products.controller.js')
 
-import { filterSchema, idRequiredSchema } from '../schemas/list.schema.js'
-import { createProductSchema, updatedProductSchema } from '../schemas/product.schema.js'
-import validatorHandler from '../middlewares/validator.handler.js'
+const { filterSchema, idRequiredSchema } = require('../schemas/list.schema.js')
+const { createProductSchema, updatedProductSchema } = require('../schemas/product.schema.js')
+const validatorHandler = require('../middlewares/validator.handler.js')
 
 const router = express.Router()
 
@@ -17,4 +17,4 @@ router.route('/:id')
   .delete(validatorHandler(idRequiredSchema), deleteProduct)
   .put(validatorHandler(updatedProductSchema), updateProduct)
 
-export default router
+module.exports = router

@@ -1,6 +1,6 @@
-import { Sequelize } from 'sequelize'
-import config from '../config/config.js'
-import setupModels from '../models/index.js'
+const { Sequelize } = require('sequelize')
+const setupModels = require('../models/index.js')
+const config = require('../config/config.js')
 
 const USER = encodeURIComponent(config.dbUser)
 const PASSWORD = encodeURIComponent(config.dbPassword)
@@ -22,6 +22,4 @@ const sequelize = new Sequelize(URI, {
 
 setupModels(sequelize)
 
-sequelize.sync()
-
-export default sequelize
+module.exports = sequelize

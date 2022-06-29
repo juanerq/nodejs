@@ -1,8 +1,8 @@
-import { Model, DataTypes, Sequelize } from 'sequelize'
+const { Model, DataTypes, Sequelize } = require('sequelize')
 
-export const PRODUCT_TABLE_NAME = 'products'
+const PRODUCT_TABLE_NAME = 'products'
 
-export const ProductSchema = {
+const ProductSchema = {
   id: {
     type: DataTypes.INTEGER,
     field: 'product_id',
@@ -51,7 +51,7 @@ export const ProductSchema = {
   }
 }
 
-export class Product extends Model {
+class Product extends Model {
   static modelName = 'Product'
 
   static associations () {
@@ -66,4 +66,10 @@ export class Product extends Model {
       timestamp: false
     }
   }
+}
+
+module.exports = {
+  PRODUCT_TABLE_NAME,
+  ProductSchema,
+  Product
 }

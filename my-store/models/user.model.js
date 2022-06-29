@@ -1,8 +1,8 @@
-import { Model, DataTypes, Sequelize } from 'sequelize'
+const { Model, DataTypes, Sequelize } = require('sequelize')
 
-export const USER_TABLE_NAME = 'users'
+const USER_TABLE_NAME = 'users'
 
-export const UserSchema = {
+const UserSchema = {
   id: {
     type: DataTypes.INTEGER,
     field: 'user_id',
@@ -48,7 +48,7 @@ export const UserSchema = {
   }
 }
 
-export class User extends Model {
+class User extends Model {
   static modelName = 'User'
 
   static associations () {
@@ -63,4 +63,10 @@ export class User extends Model {
       timestamps: false
     }
   }
+}
+
+module.exports = {
+  USER_TABLE_NAME,
+  UserSchema,
+  User
 }

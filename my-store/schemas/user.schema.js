@@ -1,6 +1,6 @@
-import Joi from 'joi'
-import Services from '../services/Services.js'
-import { modelList } from '../models/index.js'
+const Services = require('../services/Services.js')
+const { modelList } = require('../models/index.js')
+const Joi = require('joi')
 const services = new Services()
 
 const id = Joi.number().integer()
@@ -11,7 +11,7 @@ const image = Joi.string().uri()
 const roleId = Joi.number().integer()
 const isBlock = Joi.boolean()
 
-export const createUserSchema = Joi.object({
+const createUserSchema = Joi.object({
   name: name.required(),
   email: email.required(),
   password: password.required(),
@@ -19,7 +19,7 @@ export const createUserSchema = Joi.object({
   image
 })
 
-export const updatedUserSchema = Joi.object({
+const updatedUserSchema = Joi.object({
   id: id.required(),
   name,
   email,
@@ -29,7 +29,7 @@ export const updatedUserSchema = Joi.object({
   isBlock
 })
 
-export const validateRole = async (req, res, next) => {
+const validateRole = async (req, res, next) => {
   const { roleId } = req.body
   if (!roleId) return next()
 
@@ -39,4 +39,10 @@ export const validateRole = async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+}
+
+module.exports = {
+  createUserSchema,
+  updatedUserSchema,
+  validateRole
 }

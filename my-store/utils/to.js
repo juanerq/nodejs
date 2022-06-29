@@ -4,4 +4,4 @@ const to = (promise) => {
     .catch(error => [error, null])
 }
 
-export default to
+module.exports = to

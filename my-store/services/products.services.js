@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker'
-import boom from '@hapi/boom'
-import ConnectionDB from '../database/connection.js'
+const { faker } = require('@faker-js/faker')
+const boom = require('@hapi/boom')
+const ConnectionDB = require('../database/connection.js')
 
 class ProductsServices {
   constructor () {
@@ -106,4 +106,4 @@ class ProductsServices {
   }
 }
 
-export default ProductsServices
+module.exports = ProductsServices

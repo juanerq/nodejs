@@ -1,6 +1,6 @@
-import { faker } from '@faker-js/faker'
-import boom from '@hapi/boom'
-import sequelize from '../database/sequelize.js'
+const { faker } = require('@faker-js/faker')
+const boom = require('@hapi/boom')
+const sequelize = require('../database/sequelize.js')
 const { Product } = sequelize.models
 
 class ProductsServices {
@@ -86,4 +86,4 @@ class ProductsServices {
   }
 }
 
-export default ProductsServices
+module.exports = ProductsServices

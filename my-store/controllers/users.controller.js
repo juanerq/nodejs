@@ -1,10 +1,10 @@
-import Services from '../services/Services.js'
-import to from '../utils/to.js'
-import * as response from '../response/response.js'
-import { modelList } from '../models/index.js'
+const Services = require('../services/Services.js')
+const response = require('../response/response.js')
+const to = require('../utils/to.js')
+const { modelList } = require('../models')
 const services = new Services()
 
-export const listUsers = async (req, res, next) => {
+const listUsers = async (req, res, next) => {
   const id = req.params?.id
   const { limit, from } = req.query
 
@@ -18,7 +18,7 @@ export const listUsers = async (req, res, next) => {
   response.success(res, result.length, result)
 }
 
-export const createUser = async (req, res, next) => {
+const createUser = async (req, res, next) => {
   const { name, email, password, image, roleId } = req.body
 
   const newUser = {
@@ -35,7 +35,7 @@ export const createUser = async (req, res, next) => {
   response.success(res, 'User created', result)
 }
 
-export const updateUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   const userId = req.params.id
   const { id, ...data } = req.body
 
@@ -47,7 +47,7 @@ export const updateUser = async (req, res, next) => {
   response.success(res, 'User updated', result)
 }
 
-export const deleteUser = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   const userId = req.params.id
 
   const [error, result] = await to(
@@ -56,4 +56,11 @@ export const deleteUser = async (req, res, next) => {
   if (error) return next(error)
 
   response.success(res, 'Removed user', result)
+}
+
+module.exports = {
+  listUsers,
+  createUser,
+  updateUser,
+  deleteUser
 }

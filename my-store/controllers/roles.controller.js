@@ -1,10 +1,10 @@
-import Services from '../services/Services.js'
-import * as response from '../response/response.js'
-import to from '../utils/to.js'
-import { modelList } from '../models/index.js'
+const Services = require('../services/Services.js')
+const response = require('../response/response.js')
+const to = require('../utils/to.js')
+const { modelList } = require('../models/index.js')
 const services = new Services()
 
-export const listRoles = async (req, res, next) => {
+const listRoles = async (req, res, next) => {
   const id = req.params?.id
 
   const [error, result] = await to(
@@ -17,7 +17,7 @@ export const listRoles = async (req, res, next) => {
   response.success(res, result.length, result)
 }
 
-export const createRole = async (req, res, next) => {
+const createRole = async (req, res, next) => {
   const { name } = req.body
   if (!name) return next(new Error('Name is required'))
 
@@ -31,11 +31,17 @@ export const createRole = async (req, res, next) => {
   response.success(res, 'Role created', result)
 }
 
-export const deleteRole = async (req, res, next) => {
+const deleteRole = async (req, res, next) => {
   const id = req.params.id
 
   const [error, result] = await to(services.delete(modelList.role, id))
   if (error) return next(error)
 
   response.success(res, 'Removed role', result)
+}
+
+module.exports = {
+  listRoles,
+  createRole,
+  deleteRole
 }
