@@ -2,9 +2,12 @@ import express from 'express'
 import cors from 'cors'
 import { logErrors, boomErrorHandler, errorHandler, ormErrorHandler, error404 } from '../middlewares/error.handler.js'
 
+import categoriesRouter from '../routes/categories.routes.js'
 import productsRouter from '../routes/products.routes.js'
 import usersRouter from '../routes/users.routes.js'
+import customersRouter from '../routes/customers.routes.js'
 import rolesRouter from '../routes/roles.routes.js'
+import ordersRouter from '../routes/orders.routes.js'
 
 class Server {
   constructor () {
@@ -12,9 +15,12 @@ class Server {
     this.port = process.env.PORT
 
     this.ports = {
+      categories: '/categories',
+      customers: '/customers',
       products: '/products',
+      roles: '/roles',
       users: '/users',
-      roles: '/roles'
+      orders: '/orders'
     }
 
     this.middlewares()
@@ -28,9 +34,12 @@ class Server {
   routes () {
     this.app.use('/static', express.static('public'))
 
+    this.app.use(`/api${this.ports.categories}`, categoriesRouter)
+    this.app.use(`/api${this.ports.customers}`, customersRouter)
     this.app.use(`/api${this.ports.products}`, productsRouter)
-    this.app.use(`/api${this.ports.users}`, usersRouter)
     this.app.use(`/api${this.ports.roles}`, rolesRouter)
+    this.app.use(`/api${this.ports.users}`, usersRouter)
+    this.app.use(`/api${this.ports.orders}`, ordersRouter)
 
     this.app.use(logErrors)
     this.app.use(boomErrorHandler)

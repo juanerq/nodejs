@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize'
+import { ROLE_TABLE_NAME } from './role.model.js'
 
 export const USER_TABLE_NAME = 'users'
 
@@ -12,12 +13,13 @@ export const UserSchema = {
   },
   roleId: {
     type: DataTypes.INTEGER,
-    field: 'role_id',
-    allowNull: false
-  },
-  name: {
-    type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: false,
+    field: 'role',
+    references: {
+      model: ROLE_TABLE_NAME,
+      key: 'role_id'
+    },
+    onUpdate: 'CASCADE'
   },
   email: {
     type: DataTypes.STRING(100),
@@ -40,26 +42,23 @@ export const UserSchema = {
     type: DataTypes.DATE,
     field: 'created_at',
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    field: 'updated_at',
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }
 
 export class User extends Model {
   static modelName = 'User'
+  static namesAssociations = ['role']
 
-  static associations () {
-    // define association here
+  static associate (models) {
+    const [role] = this.namesAssociations
+    this.belongsTo(models.Role, { as: role })
   }
 
   static config (sequelize) {
     return {
       sequelize,
       tableName: USER_TABLE_NAME,
-      modelName: User.modelName,
+      modelName: this.modelName,
       timestamps: false
     }
   }

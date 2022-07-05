@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize'
+import { USER_TABLE_NAME } from './user.model.js'
 
 export const CATEGORY_TABLE_NAME = 'categories'
 
@@ -12,41 +13,43 @@ export const CategorySchema = {
   userId: {
     type: DataTypes.INTEGER,
     field: 'user_id',
-    allowNull: false
+    references: {
+      model: USER_TABLE_NAME,
+      key: 'user_id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false
-  },
-  isBlock: {
-    type: DataTypes.BOOLEAN,
-    field: 'is_block',
-    defaultValue: false
+    allowNull: false,
+    unique: true
   },
   createdAt: {
     type: DataTypes.DATE,
     field: 'created_at',
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    field: 'updated_at',
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }
 
 export class Category extends Model {
   static modelName = 'Category'
+  static namesAssociations = ['user', 'products']
 
-  static associations () {
-    // define association here
+  static associate (models) {
+    const [user, products] = this.namesAssociations
+    this.belongsTo(models.User, { as: user })
+    this.hasMany(models.Product, {
+      as: products,
+      foreignKey: 'categoryId'
+    })
   }
 
   static config (sequelize) {
     return {
       sequelize,
       tableName: CATEGORY_TABLE_NAME,
-      modelName: Category.modelName,
+      modelName: this.modelName,
       timestamps: false
     }
   }

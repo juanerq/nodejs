@@ -27,8 +27,6 @@ export const ormErrorHandler = (err, req, res, next) => {
 }
 
 export const boomErrorHandler = (err, req, res, next) => {
-  console.error(err)
-
   if (err.isBoom) {
     const { output } = err
     res.status(output.statusCode).json(output.payload)

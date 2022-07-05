@@ -13,7 +13,10 @@ Content-Type: application/json
 {
   "name": "flor",
   "price": 9000,
-  "image": "https://loremflickr.com/640/480"
+  "image": "https://loremflickr.com/640/480",
+  "categoryId": 1,
+  "userId": 1,
+  "description": "este producto es muy bueno"
 }
 
 ###

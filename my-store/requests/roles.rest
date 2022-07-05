@@ -1,12 +1,23 @@
 GET http://localhost:10101/api/roles
 
 ###
-GET http://localhost:10101/api/roles/1
+GET http://localhost:10101/api/roles/4
 
 ###
 POST http://localhost:10101/api/roles
 Content-Type: application/json
 
 {
-  "name": "j"
+  "name": "client"
 }
+
+###
+PUT http://localhost:10101/api/roles/4
+Content-Type: application/json
+
+{
+  "name": "user"
+}
+
+###
+DELETE http://localhost:10101/api/roles/1

@@ -12,14 +12,15 @@ export const RoleSchema = {
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: false,
+    unique: true
   }
 }
 
 export class Role extends Model {
   static modelName = 'Role'
 
-  static associations () {
+  static associate () {
     // define association here
   }
 
@@ -27,7 +28,7 @@ export class Role extends Model {
     return {
       sequelize,
       tableName: ROLE_TABLE_NAME,
-      modelName: Role.modelName,
+      modelName: this.modelName,
       timestamps: false
     }
   }

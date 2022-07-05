@@ -1,5 +1,5 @@
 import Services from '../services/Services.js'
-import to from '../utils/to.js'
+import to from '../helpers/to.js'
 import * as response from '../response/response.js'
 import { modelList } from '../models/index.js'
 const services = new Services()
@@ -19,14 +19,13 @@ export const listUsers = async (req, res, next) => {
 }
 
 export const createUser = async (req, res, next) => {
-  const { name, email, password, image, roleId } = req.body
+  const { email, password, image, role } = req.body
 
   const newUser = {
-    name,
     email,
     password,
     image,
-    roleId
+    role
   }
 
   const [error, result] = await to(services.create(modelList.user, newUser))

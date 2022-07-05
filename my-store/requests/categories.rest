@@ -1,0 +1,27 @@
+GET http://localhost:10101/api/categories/1
+
+###
+GET http://localhost:10101/api/categories?from=4&limit=3
+
+###
+GET http://localhost:10101/api/categories
+
+###
+POST http://localhost:10101/api/categories
+Content-Type: application/json
+
+{
+  "name": "comida",
+  "userId": 1
+}
+
+###
+PUT http://localhost:10101/api/categories/1
+Content-Type: application/json
+
+{
+  "name": "tecnologia"
+}
+
+###
+DELETE http://localhost:10101/api/categories/1

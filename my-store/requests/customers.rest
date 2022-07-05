@@ -1,0 +1,32 @@
+GET http://localhost:10101/api/customers?from=1
+
+###
+GET http://localhost:10101/api/customers/1
+
+###
+POST http://localhost:10101/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "Juan",
+  "lastName": "Reyes",
+  "phone": "123456789",
+  "userId": {
+    "email": "ju2@gmail.com",
+    "password": "123456",
+    "image": "https://loremflickr.com/640/480",
+    "roleId": "client"
+  }
+}
+
+###
+PUT http://localhost:10101/api/customers/1
+Content-Type: application/json
+
+{
+  "firstName": "Juan",
+  "lastName": "Reyes",
+  "phone": "123456789",
+  "userId": 1
+}
+

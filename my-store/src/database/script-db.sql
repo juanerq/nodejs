@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS my_store;
-
 CREATE SCHEMA my_store;
+
 USE my_store;
 
 CREATE TABLE roles(
@@ -127,8 +127,5 @@ values(1, 'TI');
 
 insert into products(user_id, category_id, name, description, price)
 values(1, 1, 'iphone', 'celular carooo', 20000);
-
-
-
 
 

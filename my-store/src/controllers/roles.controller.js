@@ -1,6 +1,6 @@
 import Services from '../services/Services.js'
 import * as response from '../response/response.js'
-import to from '../utils/to.js'
+import to from '../helpers/to.js'
 import { modelList } from '../models/index.js'
 const services = new Services()
 
@@ -22,7 +22,7 @@ export const createRole = async (req, res, next) => {
   if (!name) return next(new Error('Name is required'))
 
   const newRole = {
-    name
+    name: name.toUpperCase()
   }
 
   const [error, result] = await to(services.create(modelList.role, newRole))
@@ -38,4 +38,17 @@ export const deleteRole = async (req, res, next) => {
   if (error) return next(error)
 
   response.success(res, 'Removed role', result)
+}
+
+export const updateRole = async (req, res, next) => {
+  const id = req.params.id
+  const { name } = req.body
+  if (!name) return next(new Error('Name is required'))
+
+  const [error, result] = await to(
+    services.update(modelList.role, id, { name })
+  )
+  if (error) return next(error)
+
+  response.success(res, 'Role updated', result)
 }

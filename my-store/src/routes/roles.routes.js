@@ -1,5 +1,5 @@
 import express from 'express'
-import { listRoles, createRole, deleteRole } from '../controllers/roles.controller.js'
+import { listRoles, createRole, deleteRole, updateRole } from '../controllers/roles.controller.js'
 
 import { validateIdSchema, idRequiredSchema } from '../schemas/list.schema.js'
 import validatorHandler from '../middlewares/validator.handler.js'
@@ -13,6 +13,7 @@ router.route('/:id?')
   .get(validatorHandler(validateIdSchema), listRoles)
 
 router.route('/:id')
+  .put(updateRole)
   .delete(validatorHandler(idRequiredSchema), deleteRole)
 
 export default router

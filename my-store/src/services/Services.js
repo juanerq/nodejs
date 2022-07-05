@@ -3,7 +3,7 @@ import sequelize from '../database/sequelize.js'
 const models = sequelize.models
 
 class Services {
-  async find (model, { limit = 100, from = 1 } = {}) {
+  async find (model, { limit = 100, from = 1 } = {}, include = true) {
     if (!model || !models[model]) throw boom.badRequest('Model not found')
 
     const query = {
@@ -11,14 +11,21 @@ class Services {
       limit: +limit
     }
 
-    const { rows } = await models[model].findAndCountAll(query)
+    const association = include ? models[model]?.namesAssociations ?? [] : []
+
+    const { rows } = await models[model].findAndCountAll({
+      ...query,
+      include: association
+    })
     return rows || []
   }
 
   async findOne (model, id) {
     if (!model || !models[model]) throw boom.badRequest('Model not found')
 
-    const item = await models[model].findByPk(id)
+    const item = await models[model].findByPk(id, {
+      include: models[model]?.namesAssociations ?? []
+    })
     if (!item) throw boom.notFound(`${model} not found`)
 
     return item
@@ -26,7 +33,6 @@ class Services {
 
   async create (model, data) {
     if (!model || !models[model]) throw boom.badRequest('Model not found')
-
     const item = await models[model].create(data)
 
     return item || {}

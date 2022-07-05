@@ -1,0 +1,36 @@
+GET http://localhost:10101/api/orders
+
+###
+GET http://localhost:10101/api/orders?from=4&limit=3
+
+###
+GET http://localhost:10101/api/orders/1
+
+###
+POST http://localhost:10101/api/orders
+Content-Type: application/json
+
+{
+  "customerId": 1
+}
+
+###
+POST http://localhost:10101/api/orders/1/add-item
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2,
+  "price": 10
+}
+
+###
+PUT http://localhost:10101/api/orders/1
+Content-Type: application/json
+
+{
+  "customerId": 2
+}
+
+###
+DELETE http://localhost:10101/api/orders/1
