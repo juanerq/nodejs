@@ -35,10 +35,6 @@ export const OrderProductSchema = {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  price: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
   createdAt: {
     type: DataTypes.DATE,
     field: 'created_at',
@@ -53,10 +49,10 @@ export const OrderProductSchema = {
 
 export class OrderProduct extends Model {
   static modelName = 'OrderProduct'
-  static namesAssociations = []
+  static namesAssociations = ['product']
 
   static associate (models) {
-
+    this.belongsTo(models.Product, { as: 'product' })
   }
 
   static config (sequelize) {

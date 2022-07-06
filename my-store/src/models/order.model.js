@@ -29,6 +29,14 @@ export const OrderSchema = {
     type: DataTypes.DATE,
     field: 'updated_at',
     defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  total: {
+    type: DataTypes.VIRTUAL,
+    get () {
+      if (this.items && this.items.length > 0) {
+        return this.items.reduce((total, item) => total + (item.price * item.OrderProduct.quantity), 0)
+      }
+    }
   }
 }
 

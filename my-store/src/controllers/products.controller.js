@@ -6,11 +6,11 @@ const services = new Services()
 
 export const listProducts = async (req, res, next) => {
   const id = req.params?.id
-  const { limit, from } = req.query
+  const query = req.query
 
   const [error, result] = await to(
     !id
-      ? services.find(modelList.product, { limit, from }, false)
+      ? services.find(modelList.product, query, false)
       : services.findOne(modelList.product, id)
   )
 

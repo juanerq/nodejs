@@ -20,6 +20,7 @@ const setupModels = async (sequelize) => {
   Category.associate(sequelize.models)
   Product.associate(sequelize.models)
   Order.associate(sequelize.models)
+  OrderProduct.associate(sequelize.models)
 }
 
 export const modelList = {

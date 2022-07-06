@@ -18,8 +18,24 @@ export const listOrders = async (req, res, next) => {
   response.success(res, result.length, result)
 }
 
+export const listOrderProducts = async (req, res, next) => {
+  const query = {
+    orderId: req.params.id,
+    productId: req.params?.itemId,
+    ...req.query
+  }
+
+  if (!req.params?.itemId) delete query.productId
+
+  const [error, result] = await to(services.findOneWhere(modelList.orderProduct, query, true))
+  if (error) return next(error)
+
+  response.success(res, result.length, result)
+}
+
 export const createOrder = async (req, res, next) => {
   const data = req.body
+
   const [error, result] = await to(services.create(modelList.order, data))
   if (error) return next(error)
 
@@ -27,14 +43,13 @@ export const createOrder = async (req, res, next) => {
 }
 
 export const addProductToOrder = async (req, res, next) => {
-  console.log('addProductToOrder')
   const orderId = req.params.id
   const data = req.body
-  console.log(data)
+
   const [error, result] = await to(services.create(modelList.orderProduct, { ...data, orderId }))
   if (error) return next(error)
 
-  response.success(res, 'Added product', result)
+  response.success(res, 'Added item', result)
 }
 
 export const updateOrder = async (req, res, next) => {
@@ -47,6 +62,18 @@ export const updateOrder = async (req, res, next) => {
   response.success(res, 'Order updated', result)
 }
 
+export const updateProductFromOrder = async (req, res, next) => {
+  const query = {
+    orderId: req.params.id,
+    productId: req.params.itemId
+  }
+  const data = req.body
+  const [error, result] = await to(services.updateWhere(modelList.orderProduct, query, data))
+  if (error) return next(error)
+
+  response.success(res, 'Item updated', result)
+}
+
 export const deleteOrder = async (req, res, next) => {
   const id = req.params.id
 
@@ -54,4 +81,14 @@ export const deleteOrder = async (req, res, next) => {
   if (error) return next(error)
 
   response.success(res, 'Order deleted', result)
+}
+
+export const deleteProductFromOrder = async (req, res, next) => {
+  const orderId = req.params.id
+  const productId = req.params.itemId
+
+  const [error, result] = await to(services.deleteWhere(modelList.orderProduct, { orderId, productId }))
+  if (error) return next(error)
+
+  response.success(res, 'Product deleted', result)
 }

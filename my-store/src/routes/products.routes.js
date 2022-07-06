@@ -1,7 +1,7 @@
 import express from 'express'
 import { listProducts, createProduct, updateProduct, deleteProduct } from '../controllers/products.controller.js'
 
-import { filterSchema, idRequiredSchema } from '../schemas/list.schema.js'
+import { filterProductsSchema, idRequiredSchema } from '../schemas/list.schema.js'
 import { userExists, categoryExists } from '../helpers/db.validators.js'
 import { createProductSchema, updatedProductSchema } from '../schemas/product.schema.js'
 import validatorHandler from '../middlewares/validator.handler.js'
@@ -12,7 +12,7 @@ router.route('/')
   .post(validatorHandler(createProductSchema), userExists, categoryExists, createProduct)
 
 router.route('/:id?')
-  .get(validatorHandler(filterSchema), listProducts)
+  .get(validatorHandler(filterProductsSchema), listProducts)
 
 router.route('/:id')
   .delete(validatorHandler(idRequiredSchema), deleteProduct)

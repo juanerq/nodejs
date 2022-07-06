@@ -58,8 +58,7 @@ export const customerExists = async (req, res, next) => {
 }
 
 export const productExists = async (req, res, next) => {
-  const { productId } = req.body
-  console.log({ productId })
+  const productId = req.body.productId ?? req.params.itemId
   if (!productId) return next()
 
   const product = await models.Product.findByPk(productId)
@@ -70,7 +69,6 @@ export const productExists = async (req, res, next) => {
 
 export const orderExists = async (req, res, next) => {
   const orderId = req.body.orderId ?? req.params.id
-  console.log({ orderId })
   if (!orderId) return next()
 
   const order = await models.Order.findByPk(orderId)
