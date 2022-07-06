@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "build": "babel src/ --out-dir build",
     "serve": "node build/index.js",
     "migrations:generate": "sequelize-cli migration:generate --name",
@@ -17,25 +17,25 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.18.6",
-    "@babel/core": "^7.18.6",
-    "@babel/node": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/register": "^7.18.6",
-    "@faker-js/faker": "^7.2.0",
-    "eslint": "^8.17.0",
-    "eslint-config-standard": "^17.0.0",
-    "nodemon": "^2.0.16",
-    "sequelize-cli": "^6.4.1"
+    "@faker-js/faker": "7.2.0",
+    "eslint": "8.17.0",
+    "eslint-config-standard": "17.0.0",
+    "nodemon": "2.0.16"  
   },
   "dependencies": {
-    "@hapi/boom": "^10.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "joi": "^17.6.0",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.3.3",
-    "sequelize": "^6.21.0"
+    "@babel/cli": "7.18.6",
+    "@babel/core": "7.18.6",
+    "@babel/node": "7.18.6",
+    "@babel/preset-env": "7.18.6",
+    "@babel/register": "7.18.6",
+    "@hapi/boom": "10.0.0",
+    "cors": "2.8.5",
+    "dotenv": "16.0.1",
+    "express": "4.18.1",
+    "joi": "17.6.0",
+    "mysql": "2.18.1",
+    "mysql2": "2.3.3",
+    "sequelize": "6.21.0",
+    "sequelize-cli": "6.4.1"
   }
 }

@@ -19,14 +19,7 @@ export const listUsers = async (req, res, next) => {
 }
 
 export const createUser = async (req, res, next) => {
-  const { email, password, image, role } = req.body
-
-  const newUser = {
-    email,
-    password,
-    image,
-    role
-  }
+  const newUser = req.body
 
   const [error, result] = await to(services.create(modelList.user, newUser))
   if (error) return next(error)

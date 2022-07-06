@@ -5,6 +5,7 @@ const models = sequelize.models
 export const isRoleValid = async (req, res, next) => {
   const role = req.body.roleId ?? req.body.userId.roleId
   if (!role) return next()
+
   const roleName = role.toUpperCase()
 
   const roleExists = await models.Role.findAll()
@@ -20,9 +21,9 @@ export const isRoleValid = async (req, res, next) => {
     return
   }
 
-  req.body.role
-    ? req.body.roleId = roles[roleName]
-    : req.body.userId.roleId = roles[roleName]
+  req.body.roleId
+    ? (req.body.roleId = roles[roleName])
+    : (req.body.userId.roleId = roles[roleName])
 
   next()
 }

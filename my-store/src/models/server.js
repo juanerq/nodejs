@@ -32,7 +32,7 @@ class Server {
   }
 
   routes () {
-    this.app.use('/static', express.static('public'))
+    this.app.use('/static', express.static('src/public'))
 
     this.app.use(`/api${this.ports.categories}`, categoriesRouter)
     this.app.use(`/api${this.ports.customers}`, customersRouter)

@@ -2,11 +2,7 @@ import { Sequelize } from 'sequelize'
 import config from '../config/config.js'
 import setupModels from '../models/index.js'
 
-const USER = encodeURIComponent(config.dbUser)
-const PASSWORD = encodeURIComponent(config.dbPassword)
-const URI = `mysql://${USER}:${PASSWORD}@${config.dbHost}/${config.dbName}`
-
-const sequelize = new Sequelize(URI, {
+const sequelize = new Sequelize(config.dbUrl, {
   dialect: 'mysql',
   logging: false
 })
